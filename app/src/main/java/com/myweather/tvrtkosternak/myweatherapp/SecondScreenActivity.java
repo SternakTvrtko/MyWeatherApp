@@ -70,7 +70,6 @@ public class SecondScreenActivity extends Activity{
 
 
         Button backButton=(Button) findViewById(R.id.back_button);
-        backButton.setBackgroundResource(R.drawable.buttonstyle);
         backButton.setTextSize(18);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
