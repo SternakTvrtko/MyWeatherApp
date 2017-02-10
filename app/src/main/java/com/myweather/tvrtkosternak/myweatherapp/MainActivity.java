@@ -54,21 +54,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         url=url.replace("{lon}","0");
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
 
-        mprovider = locationManager.getBestProvider(criteria, false);
-
-        if (mprovider != null && !mprovider.equals("")) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            Location location = locationManager.getLastKnownLocation(mprovider);
-            locationManager.requestLocationUpdates(mprovider, 0, 1000, this);
-
-            if (location != null)
-                onLocationChanged(location);
-            else
-                Toast.makeText(getBaseContext(), "No Location Provider Found Check Your Code", Toast.LENGTH_SHORT).show();
+        if(!(this.checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION")==PackageManager.PERMISSION_GRANTED)){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1000, this);
         }
 
         /*thread.start();
@@ -79,6 +69,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         }
 
         initGui();*/
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
+        if (requestCode == 1
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1000, this);
+        }
     }
 
     @Override
