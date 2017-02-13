@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">MyWeatherApp</string>
+    <string name="Temperature">Temperature</string>
+    <string name="Precipitation">Precipitation</string>
+    <string name="Wind">Wind</string>
+    <string name="Humidity">Humidity</string>
+    <string name="Pressure">Pressure</string>
+    <string name="Clouds">Clouds</string>
+    <string name="Return_button">Return to weathers</string>
+    <string name="noPrecipitationType">None</string>
+    <string name="noPrecipitationValue">-</string>
+    <string name="urltemplate">http://api.openweathermap.org/data/2.5/forecast?lat={lat}&amp;lon={lon}&amp;appid=8c5a31a1d1144a3e27d506c3fbef59e3&amp;mode=xml</string>
+    <string name="latitudeToken">{lat}</string>
+    <string name="longitudeToken">{lon}</string>
+    <string name="updatingMsg">Updating your location and weather</string>
+    <string name="updateDoneMsg">Location and weather updated</string>
+    <string name="loading">Locating you</string>
 </resources>

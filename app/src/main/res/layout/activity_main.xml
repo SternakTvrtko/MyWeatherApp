@@ -12,16 +12,14 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#80FFFFFF">
         <TextView
-            android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/LocationMain"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
         <TextView
-            android:text="TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/SunSetRiseMain"
@@ -30,9 +28,31 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
             android:id="@+id/weatherButtonTable">
         </TableLayout>
+
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/loadingPanelText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/loading"
+                android:gravity="center"/>
+        </RelativeLayout>
     </TableLayout>
 </ScrollView>

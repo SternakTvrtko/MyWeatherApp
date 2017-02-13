@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
@@ -16,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
-                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/TimeSecond"
@@ -25,14 +23,14 @@
                 android:textSize="30sp" />
         </TableRow>
 
-        <TableRow android:layout_height="2px" android:background="#BDBDBD">
-            <TextView android:layout_span="2" android:layout_height="2px"
+        <TableRow android:layout_height="2dp" android:background="#BDBDBD">
+            <TextView android:layout_span="2" android:layout_height="2dp"
                 android:layout_width="fill_parent" android:text="">
             </TextView>
         </TableRow>
 
-        <TableRow android:layout_height="50px">
-            <TextView android:layout_span="2" android:layout_height="50px"
+        <TableRow android:layout_height="40dp">
+            <TextView android:layout_span="2" android:layout_height="40dp"
                 android:layout_width="fill_parent" android:text="">
             </TextView>
         </TableRow>
@@ -41,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
-                android:text="Temperature"
+                android:text="@string/Temperature"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/temperature"
@@ -50,7 +48,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/temperatureVal"
@@ -72,7 +69,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/temperatureMax"
@@ -94,7 +90,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/temperatureMin"
@@ -104,8 +99,8 @@
                 android:fontFamily="sans-serif" />
         </TableRow>
 
-        <TableRow android:layout_height="2px" android:background="#BDBDBD">
-            <TextView android:layout_span="2" android:layout_height="2px"
+        <TableRow android:layout_height="2dp" android:background="#BDBDBD">
+            <TextView android:layout_span="2" android:layout_height="2dp"
                 android:layout_width="fill_parent" android:text="">
             </TextView>
         </TableRow>
@@ -114,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
-                android:text="Precipitation"
+                android:text="@string/Precipitation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/precipitation"
@@ -123,7 +118,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/precipitationType"
@@ -146,7 +140,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/precipitationValue"
@@ -156,8 +149,8 @@
                 android:fontFamily="sans-serif" />
         </TableRow>
 
-        <TableRow android:layout_height="2px" android:background="#BDBDBD">
-            <TextView android:layout_span="2" android:layout_height="2px"
+        <TableRow android:layout_height="2dp" android:background="#BDBDBD">
+            <TextView android:layout_span="2" android:layout_height="2dp"
                 android:layout_width="fill_parent" android:text="">
             </TextView>
         </TableRow>
@@ -166,7 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
-                android:text="Wind"
+                android:text="@string/Wind"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/wind"
@@ -175,7 +168,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/windName"
@@ -197,7 +189,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/windSpeed"
@@ -219,7 +210,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/windDirectionName"
@@ -229,8 +219,8 @@
                 android:fontFamily="sans-serif" />
         </TableRow>
 
-        <TableRow android:layout_height="2px" android:background="#BDBDBD">
-            <TextView android:layout_span="2" android:layout_height="2px"
+        <TableRow android:layout_height="2dp" android:background="#BDBDBD">
+            <TextView android:layout_span="2" android:layout_height="2dp"
                 android:layout_width="fill_parent" android:text="">
             </TextView>
         </TableRow>
@@ -239,7 +229,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
-                android:text="Humidity"
+                android:text="@string/Humidity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/humidity"
@@ -248,7 +238,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/humidityValue"
@@ -258,8 +247,8 @@
                 android:fontFamily="sans-serif" />
         </TableRow>
 
-        <TableRow android:layout_height="2px" android:background="#BDBDBD">
-            <TextView android:layout_span="2" android:layout_height="2px"
+        <TableRow android:layout_height="2dp" android:background="#BDBDBD">
+            <TextView android:layout_span="2" android:layout_height="2dp"
                 android:layout_width="fill_parent" android:text="">
             </TextView>
         </TableRow>
@@ -268,7 +257,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
-                android:text="Pressure"
+                android:text="@string/Pressure"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/pressure"
@@ -277,7 +266,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/pressureValue"
@@ -287,8 +275,8 @@
                 android:fontFamily="sans-serif" />
         </TableRow>
 
-        <TableRow android:layout_height="2px" android:background="#BDBDBD">
-            <TextView android:layout_span="2" android:layout_height="2px"
+        <TableRow android:layout_height="2dp" android:background="#BDBDBD">
+            <TextView android:layout_span="2" android:layout_height="2dp"
                 android:layout_width="fill_parent" android:text="">
             </TextView>
         </TableRow>
@@ -297,7 +285,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
-                android:text="Clouds"
+                android:text="@string/Clouds"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/clouds"
@@ -306,7 +294,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/cloudsValue"
@@ -329,7 +316,6 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif" />
             <TextView
-                android:text="TextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/cloudsAll"
@@ -340,10 +326,10 @@
         </TableRow>
     </TableLayout>
     <Button
-        android:text="Return to weathers"
+        android:text="@string/Return_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableRight="@drawable/back_image"
+        android:drawableEnd="@drawable/back_image"
         android:id="@+id/back_button"
         android:layout_alignParentBottom="true"
         android:textAlignment="textStart" />
