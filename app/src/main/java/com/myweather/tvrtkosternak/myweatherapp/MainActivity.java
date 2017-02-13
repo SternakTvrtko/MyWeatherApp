@@ -18,30 +18,35 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Models.WeatherModel;
+import Services.ButtonsAdapter;
 import Services.WeatherDataService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements LocationListener{
+
     @BindView(R.id.LocationMain) TextView location;
     @BindView(R.id.SunSetRiseMain) TextView sunData;
-    @BindView(R.id.activity_main) ScrollView mainWindow;
-    @BindView(R.id.weatherButtonTable) TableLayout buttonTable;
+    @BindView(R.id.activity_main) RelativeLayout mainWindow;
     @BindView(R.id.loadingPanel) RelativeLayout loadingPanel;
+
     @BindView(R.id.loadingPanelText) RelativeLayout loadingPanelText;
+    @BindView(R.id.rvButtons) RecyclerView buttonsRecycleTable;
 
     WeatherDataService weatherDataService=new WeatherDataService();
-    String url;
     LocationManager locationManager;
 
     public class WeatherUpdater extends AsyncTask<String, String, Void> {
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         if(!(this.checkCallingOrSelfPermission(getString(R.string.access_location_req))==PackageManager.PERMISSION_GRANTED)){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1000, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 1000, this);
         }
     }
 
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                                            @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == 1
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1000, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 500, 1000, this);
         } else {
             Toast.makeText(this, getString(R.string.permisson_denied), Toast.LENGTH_LONG).show();
         }
@@ -96,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
-        url=getString(R.string.urltemplate);
+        String url=getString(R.string.urltemplate);
         url=url.replace(getString(R.string.latitudeToken), Double.toString(location.getLatitude()));
         url=url.replace(getString(R.string.longitudeToken), Double.toString(location.getLongitude()));
 
@@ -121,7 +126,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     @Override
     public void onProviderDisabled(String s) {
-        createGPSDialog().show();
+        Dialog dialog=createGPSDialog();
+        try {
+            dialog.show();
+        } catch (Exception e){
+
+        }
     }
 
     private void initGui(){
@@ -137,23 +147,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
 
     private void createWeatherButtons(){
-        buttonTable.removeAllViews();
+        List<Button> buttonsList=new ArrayList<>();
         int id=0;
         for(WeatherModel w:weatherDataService.getWeathers()){
-            TableRow row=new TableRow(this);
-
-            row.setLayoutParams(new TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.MATCH_PARENT,
-                    TableLayout.LayoutParams.WRAP_CONTENT,
-                    1.0f
-            ));
-
-            buttonTable.addView(row);
-            row.addView(createWeatherButton(w));
-
+            buttonsList.add(createWeatherButton(w));
             id++;
             if(id==10) break;
         }
+
+        ButtonsAdapter adapter = new ButtonsAdapter(this, buttonsList);
+        buttonsRecycleTable.setAdapter(adapter);
+        buttonsRecycleTable.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private Button createWeatherButton(final WeatherModel weather){
@@ -214,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
     }
 
     public Dialog createGPSDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage(R.string.dialog_gps_not_on)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

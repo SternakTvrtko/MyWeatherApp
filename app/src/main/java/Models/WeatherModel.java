@@ -1,5 +1,7 @@
 package Models;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Tvrtko on 6.2.2017..
  */
@@ -135,9 +137,11 @@ public class WeatherModel {
 
     private String checkKelvinBug(String temp){
         Double temperature=Double.parseDouble(temp);
+        DecimalFormat df = new DecimalFormat("#.##");
+
         if(temperature>200){
             temperature=temperature-273.15;
         }
-        return Double.toString(temperature);
+        return df.format(temperature);
     }
 }

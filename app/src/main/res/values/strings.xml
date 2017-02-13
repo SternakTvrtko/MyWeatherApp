@@ -19,7 +19,7 @@
     <string name="cancel">Cancel</string>
     <string name="dialog_gps_not_on">GPS is not on, would you like to turn it on?</string>
     <string name="permisson_denied">This app can\'t work properly withot GPS permission, please enable it</string>
-    <string name="access_location_req">android.permission.ACCESS_FINE_LOCATION</string>
+    <string name="access_location_req">android.permission.ACCESS_COARSE_LOCATION</string>
     <string name="celsius">°C</string>
     <string name="fromVal">timeFrom</string>
     <string name="toVal">timeTo</string>

@@ -9,7 +9,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#80FFFFFF">
+        android:background="@color/backgroundColor">
 
         <TableRow
             android:layout_width="match_parent"
@@ -332,5 +332,6 @@
         android:drawableEnd="@drawable/back_image"
         android:id="@+id/back_button"
         android:layout_alignParentBottom="true"
-        android:textAlignment="textStart" />
+        android:textAlignment="textStart"
+        android:background="@color/backgroundColor"/>
 </RelativeLayout>
