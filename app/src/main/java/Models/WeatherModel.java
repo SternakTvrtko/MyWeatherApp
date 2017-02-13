@@ -46,9 +46,9 @@ public class WeatherModel {
         this.windSpeedValue = windSpeedValue;
         this.windSpeedName = windSpeedName;
         this.temperatureUnit = temperatureUnit;
-        this.temperatureValue = temperatureValue;
-        this.temperatureMin = temperatureMin;
-        this.temperatureMax = temperatureMax;
+        this.temperatureValue = checkKelvinBug(temperatureValue);
+        this.temperatureMin = checkKelvinBug(temperatureMin);
+        this.temperatureMax = checkKelvinBug(temperatureMax);
         this.pressureUnit = pressureUnit;
         this.pressureValue = pressureValue;
         this.humidityValue = humidityValue;
@@ -131,5 +131,13 @@ public class WeatherModel {
                 + temperatureValue + ", temperatureMin=" + temperatureMin + ", temperatureMax=" + temperatureMax
                 + ", pressureUnit=" + pressureUnit + ", pressureValue=" + pressureValue + ", humidityValue="
                 + humidityValue + ", cloudsValue=" + cloudsValue + ", cloudsAll=" + cloudsAll + "]";
+    }
+
+    private String checkKelvinBug(String temp){
+        Double temperature=Double.parseDouble(temp);
+        if(temperature>200){
+            temperature=temperature-273.15;
+        }
+        return Double.toString(temperature);
     }
 }

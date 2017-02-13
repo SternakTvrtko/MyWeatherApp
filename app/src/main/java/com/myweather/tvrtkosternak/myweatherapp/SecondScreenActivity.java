@@ -44,39 +44,39 @@ public class SecondScreenActivity extends Activity{
 
         Intent i=getIntent();
 
-        String tempMinString="Min: "+i.getStringExtra("tempMin");
-        String tempMaxString="Max: "+i.getStringExtra("tempMax");
+        String tempMinString=getString(R.string.MinTempStart)+i.getStringExtra(getString(R.string.tempMin));
+        String tempMaxString=getString(R.string.MaxTempStart)+i.getStringExtra(getString(R.string.tempMax));
 
-        String precipValueString=i.getStringExtra("precipVal")+" mm";
-        String windSpeedString=i.getStringExtra("windVal")+" mph";
+        String precipValueString=i.getStringExtra(getString(R.string.precipVal))+getString(R.string.milimeters);
+        String windSpeedString=i.getStringExtra(getString(R.string.windVal))+getString(R.string.milesPerHour);
 
-        String hourFrom=i.getStringExtra("timeFrom");
+        String hourFrom=i.getStringExtra(getString(R.string.fromVal));
         hourFrom=hourFrom.substring(hourFrom.indexOf("T")+1,hourFrom.indexOf(":"));
 
-        String hourTo=i.getStringExtra("timeTo");
+        String hourTo=i.getStringExtra(getString(R.string.toVal));
         hourTo=hourTo.substring(hourTo.indexOf("T")+1,hourTo.indexOf(":"));
 
         time.setText(hourFrom+"-"+hourTo+"h");
-        tempVal.setText(i.getStringExtra("tempValue"));
+        tempVal.setText(i.getStringExtra(getString(R.string.tempVal)));
         tempMin.setText(tempMinString);
         tempMax.setText(tempMaxString);
 
-        if(i.getStringExtra("precipType")==null){
+        if(i.getStringExtra(getString(R.string.precipType))==null){
             precType.setText(getString(R.string.noPrecipitationType));
             precValue.setText(getString(R.string.noPrecipitationValue));
         } else {
-            precType.setText(i.getStringExtra("precipType"));
+            precType.setText(i.getStringExtra(getString(R.string.precipType)));
             precValue.setText(precipValueString);
         }
 
 
-        windName.setText(i.getStringExtra("windName"));
+        windName.setText(i.getStringExtra(getString(R.string.windName)));
         windSpeed.setText(windSpeedString);
-        windDirection.setText(i.getStringExtra("windDirectionName"));
-        humidityValue.setText(i.getStringExtra("humidityVal"));
-        pressureVal.setText(i.getStringExtra("pressureVal"));
-        cloudsVal.setText(i.getStringExtra("cloudsValue"));
-        cloudsAll.setText(i.getStringExtra("cloudsAll"));
+        windDirection.setText(i.getStringExtra(getString(R.string.windDirectionName)));
+        humidityValue.setText(i.getStringExtra(getString(R.string.humidityVal)));
+        pressureVal.setText(i.getStringExtra(getString(R.string.pressureVal)));
+        cloudsVal.setText(i.getStringExtra(getString(R.string.cloudsVal)));
+        cloudsAll.setText(i.getStringExtra(getString(R.string.cloudsAll)));
 
 
         Button backButton=(Button) findViewById(R.id.back_button);
@@ -88,7 +88,7 @@ public class SecondScreenActivity extends Activity{
             }
         });
 
-        String iconCode=i.getStringExtra("backgroundCode");
+        String iconCode=i.getStringExtra(getString(R.string.backgroundCode));
         secondScreeen.setBackgroundResource(getApplicationContext().getResources().getIdentifier("drawable/b" + iconCode, null, getApplicationContext().getPackageName()));
     }
 }

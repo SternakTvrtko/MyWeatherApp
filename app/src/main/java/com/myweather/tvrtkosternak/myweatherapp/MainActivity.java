@@ -1,7 +1,9 @@
 package com.myweather.tvrtkosternak.myweatherapp;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,9 +12,11 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -72,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if(!(this.checkCallingOrSelfPermission("android.permission.ACCESS_FINE_LOCATION")==PackageManager.PERMISSION_GRANTED)){
+        if(!(this.checkCallingOrSelfPermission(getString(R.string.access_location_req))==PackageManager.PERMISSION_GRANTED)){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1000, this);
@@ -86,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1000, this);
         } else {
-
+            Toast.makeText(this, getString(R.string.permisson_denied), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -117,12 +121,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
 
     @Override
     public void onProviderDisabled(String s) {
-
+        createGPSDialog().show();
     }
 
     private void initGui(){
         location.setText(weatherDataService.getLocation());
-        sunData.setText("Sunrise: "+weatherDataService.getSunRise()+"\n"+"Sunset: "+weatherDataService.getSunSet());
+        sunData.setText(getString(R.string.sunrise)+weatherDataService.getSunRise()+"\n"+getString(R.string.sunset)+weatherDataService.getSunSet());
 
 
         createWeatherButtons();
@@ -168,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         hourTo=hourTo.substring(hourTo.indexOf("T")+1,hourTo.indexOf(":"));
 
         String temperature=weather.getTemperatureValue();
-        temperature=temperature+"°C";
+        temperature=temperature+getString(R.string.celsius);
 
         weatherButton.setBackgroundResource(R.drawable.buttonstyle);
 
@@ -185,21 +189,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
             public void onClick(View v) {
                 Intent detailedWeatherScreen = new Intent(getApplicationContext(), SecondScreenActivity.class);
 
-                detailedWeatherScreen.putExtra("timeFrom", weather.getTimeFrom());
-                detailedWeatherScreen.putExtra("timeTo", weather.getTimeTo());
-                detailedWeatherScreen.putExtra("tempValue",weather.getTemperatureValue()+"°C");
-                detailedWeatherScreen.putExtra("tempMin", weather.getTemperatureMin()+"°C");
-                detailedWeatherScreen.putExtra("tempMax", weather.getTemperatureMax()+"°C");
-                detailedWeatherScreen.putExtra("precipType", weather.getPrecitipationType());
-                detailedWeatherScreen.putExtra("precipVal", weather.getPrecitipationValue());
-                detailedWeatherScreen.putExtra("windName", weather.getWindSpeedName());
-                detailedWeatherScreen.putExtra("windVal", weather.getWindSpeedValue());
-                detailedWeatherScreen.putExtra("windDirectionName", weather.getWindDirectionName());
-                detailedWeatherScreen.putExtra("humidityVal", weather.getHumidityValue()+"%");
-                detailedWeatherScreen.putExtra("pressureVal", weather.getPressureValue()+" "+weather.getPressureUnit());
-                detailedWeatherScreen.putExtra("cloudsValue", weather.getCloudsValue());
-                detailedWeatherScreen.putExtra("cloudsAll", weather.getCloudsAll()+"%");
-                detailedWeatherScreen.putExtra("backgroundCode", weatherDataService.getWeathers().get(0).getWeatherIconId());
+                detailedWeatherScreen.putExtra(getString(R.string.fromVal), weather.getTimeFrom());
+                detailedWeatherScreen.putExtra(getString(R.string.toVal), weather.getTimeTo());
+                detailedWeatherScreen.putExtra(getString(R.string.tempVal),weather.getTemperatureValue()+getString(R.string.celsius));
+                detailedWeatherScreen.putExtra(getString(R.string.tempMin), weather.getTemperatureMin()+getString(R.string.celsius));
+                detailedWeatherScreen.putExtra(getString(R.string.tempMax), weather.getTemperatureMax()+getString(R.string.celsius));
+                detailedWeatherScreen.putExtra(getString(R.string.precipType), weather.getPrecitipationType());
+                detailedWeatherScreen.putExtra(getString(R.string.precipVal), weather.getPrecitipationValue());
+                detailedWeatherScreen.putExtra(getString(R.string.windName), weather.getWindSpeedName());
+                detailedWeatherScreen.putExtra(getString(R.string.windVal), weather.getWindSpeedValue());
+                detailedWeatherScreen.putExtra(getString(R.string.windDirectionName), weather.getWindDirectionName());
+                detailedWeatherScreen.putExtra(getString(R.string.humidityVal), weather.getHumidityValue()+"%");
+                detailedWeatherScreen.putExtra(getString(R.string.pressureVal), weather.getPressureValue()+" "+weather.getPressureUnit());
+                detailedWeatherScreen.putExtra(getString(R.string.cloudsVal), weather.getCloudsValue());
+                detailedWeatherScreen.putExtra(getString(R.string.cloudsAll), weather.getCloudsAll()+"%");
+                detailedWeatherScreen.putExtra(getString(R.string.backgroundCode), weatherDataService.getWeathers().get(0).getWeatherIconId());
 
                 startActivity(detailedWeatherScreen);
             }
@@ -209,5 +213,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener{
         return weatherButton;
     }
 
+    public Dialog createGPSDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.dialog_gps_not_on)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent onGPS = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(onGPS);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                });
+        return builder.create();
+    }
 
 }
